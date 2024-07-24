@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface TodoItem {
   id: number;
   task: string;
+  description:string;
   completed: boolean;
 }
 
@@ -18,36 +19,37 @@ interface TodoItem {
 export class TodoListComponent implements OnInit {
   todoList: TodoItem[] = [];
   newTask: string = '';
-  @ViewChild('todoText') todoInputRef!: ElementRef<HTMLInputElement>;
+  newDescription: string='';
 
-  constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     const storedTodoList = localStorage.getItem('todoList');
     if (storedTodoList) {
       this.todoList = JSON.parse(storedTodoList);
     }
   }
 
-  addTask(): void {
-    if (this.newTask.trim() !== '') {
+  addTask() {
+    if (this.newTask.trim() !== '' &&  this.newDescription.trim() !== '') {
       const newTodoItem: TodoItem = {
         id: Date.now(),
         task: this.newTask.trim(),
-        completed: false
+        completed: false,
+        description:this.newDescription.trim(),
       };
       this.todoList.push(newTodoItem);
       this.newTask = '';
+      this.newDescription='';
       this.saveTodoList();
     }
   }
 
-  deleteTask(id: number): void {
+  deleteTask(id: number){
     this.todoList = this.todoList.filter(item => item.id !== id);
     this.saveTodoList();
   }
 
-  toggleCompleted(id: number): void {
+  toggleCompleted(id: number){
     const todoItem = this.todoList.find(item => item.id === id);
     if (todoItem) {
       todoItem.completed = !todoItem.completed;
@@ -55,7 +57,7 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  saveTodoList(): void {
+  saveTodoList(){
     localStorage.setItem('todoList', JSON.stringify(this.todoList));
   }
 }
