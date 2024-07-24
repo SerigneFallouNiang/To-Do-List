@@ -2,7 +2,8 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 /* CSS personnalisé pour améliorer l'apparence */
-/* 
+/* CSS personnalisé pour améliorer l'apparence */
+
 .container {
     margin-top: 20px;
 }
@@ -49,4 +50,5 @@
 
 .list-group-item .form-check-input {
     margin-top: 0;
-} */
+}
+
