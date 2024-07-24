@@ -15,9 +15,11 @@
         <button (click)="deleteTask(todoItem.id)">Delete</button>
     </li>
 </ul>  -->
+<!-- <div class="container">
+    <div class="row">
 
 <div>
-    <input type="text" [(ngModel)]="newTask" placeholder="Add Todo">
+    <input type="text" [(ngModel)]="newTask" placeholder="Add Todo" class="form-controle">
     <button (click)="addTask()">Add</button>
 </div>
 
@@ -32,3 +34,54 @@
         <button (click)="deleteTask(todoItem.id)">Delete</button>
     </li>
 </ul>
+</div>
+</div> -->
+
+
+<div class="container mt-4 mt-lg-5">
+    <div class="row g-4">
+        <div class="col-12 col-lg-6">
+            <img src="https://img.freepik.com/photos-gratuite/woman-shopping-legumes-au-supermarche_1157-37876.jpg?t=st=1721391554~exp=1721395154~hmac=1c959a2dc1aa179c071bb416e0c355668985cc49d449b0b762469751b1b7b153&w=1380" alt="Shopping Image" class="img-fluid rounded">
+        </div>
+        <div class="col-12 col-lg-6">
+            <!-- bouton d'ajout des tâches -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <input type="text" [(ngModel)]="newTask" placeholder="Ajouter une Tâche" class="form-controle">
+                        </h4>
+                        <button class="btn btn-success btn-sm" (click)="addTask()">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- filtre par date -->
+            <select class="form-select form-select-sm mb-4" name="dateFilter" id="dateFilter">
+                <option selected>Selectionner une date</option>
+            </select>
+
+            <!-- liste des produits -->
+            <div id="produit-list">
+               <!-- contenue des produits -->
+               <div class="card-body" data-id="${produit.id}" data-nom="${produit.produit}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="produit-left flex d-flex">
+                        <ul>
+                            <li *ngFor="let todoItem of todoList">
+                                <input
+                                    type="checkbox"
+                                    [checked]="todoItem.completed"
+                                    (change)="toggleCompleted(todoItem.id)"
+                                />
+                                <span [class.completed]="todoItem.completed">{{ todoItem.task }}</span>
+                                <button (click)="deleteTask(todoItem.id)">Delete</button>
+                            </li>
+                        </ul>
+                  
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
