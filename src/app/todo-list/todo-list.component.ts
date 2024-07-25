@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 interface TodoItem {
   id: number;
   task: string;
-  description:string;
+  description: string;
   completed: boolean;
 }
 
@@ -19,45 +19,37 @@ interface TodoItem {
 export class TodoListComponent implements OnInit {
   todoList: TodoItem[] = [];
   newTask: string = '';
-  newDescription: string='';
+  newDescription: string = '';
 
-
-  ngOnInit(){
-    const storedTodoList = localStorage.getItem('todoList');
-    if (storedTodoList) {
-      this.todoList = JSON.parse(storedTodoList);
-    }
+  ngOnInit() {
+    // Initialisation du tableau avec des tâches par défaut si nécessaire
+    // this.todoList = [
+    //   { id: 1, task: 'Exemple de tâche', description: 'Description de l\'exemple', completed: false }
+    // ];
   }
 
   addTask() {
-    if (this.newTask.trim() !== '' &&  this.newDescription.trim() !== '') {
+    if (this.newTask.trim() !== '' && this.newDescription.trim() !== '') {
       const newTodoItem: TodoItem = {
         id: Date.now(),
         task: this.newTask.trim(),
         completed: false,
-        description:this.newDescription.trim(),
+        description: this.newDescription.trim(),
       };
       this.todoList.push(newTodoItem);
       this.newTask = '';
-      this.newDescription='';
-      this.saveTodoList();
+      this.newDescription = '';
     }
   }
 
-  deleteTask(id: number){
+  deleteTask(id: number) {
     this.todoList = this.todoList.filter(item => item.id !== id);
-    this.saveTodoList();
   }
 
-  toggleCompleted(id: number){
+  toggleCompleted(id: number) {
     const todoItem = this.todoList.find(item => item.id === id);
     if (todoItem) {
       todoItem.completed = !todoItem.completed;
-      this.saveTodoList();
     }
-  }
-
-  saveTodoList(){
-    localStorage.setItem('todoList', JSON.stringify(this.todoList));
   }
 }
